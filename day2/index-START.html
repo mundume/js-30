@@ -87,7 +87,8 @@ const hours = now.getHours()
 const secondDegree = ((seconds/60)*360)+90
 const minuteDegree = ((minutes/60)*360)+90
 const hourDegree= ((hours/12)*360)+90
-console.log(hoursHand)
+console.log(hourDegree)
+//transform the clock hands
 secondHand.style.transform = `rotate ${secondDegree}`
 minHand.style.transform = `rotate ${minuteDegree}`
 hourHand.style.transform = `rotate ${hourDegree}`
