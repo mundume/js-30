@@ -18,39 +18,47 @@
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
 const cities = [];
-
 fetch(endpoint)
 .then(blob=>blob.json())
-.then(data=>cities.push(...data) )
-//search the data from the API
- function findmatches (wordToMatch, cities){//function takes 2 parameters
-  return cities.filter(place=>{
-    //match what was searched
-    const regex = new RegExp(wordToMatch, 'gi') //use regex to find the input value
-    return place.city.match(regex) || place.state.match(regex)
-  })
- }
+.then(data=>cities.push(...data))
 
- function displayMatches (){
-  const matchArray = findmatches(this.value, cities);//acess data from the inputs
-  const html = matchArray.map(place=>{ //match and display the search values
-    const regex = new RegExp(this.value,'gi')
-    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`)
-    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`)
+
+const searchInput = document.querySelector('.search')
+const suggestions = document.querySelector('.suggestions')
+
+function findMatches(wordToMatch, cities){
+  return cities.filter(place=>{
+    const regex = new RegExp(wordToMatch,'gi' )
+   return place.city.match(regex) || place.state.match(regex)
+   console.log(regex)
+  })
+  
+}
+
+
+function displayMatches(){
+  const matchArray = findMatches(this.value, cities)
+
+  
+  const html = matchArray.map(place=>{
+    const regex = new RegExp (this.value,'gi')
+  const cityName = place.city.replace(regex, `<span class='hl'>
+    ${this.value}</span>`)
+    const stateName = place.state.replace(regex, `<span class='hl'>
+    ${this.value}</span>`)
     return `
     <li>
       <span class="name">${cityName}, ${stateName}</span>
-      <span class="popolation">${place.population}</span>
-    </li>
-    `;
-  }).join('');
+      <span class="population">${place.population}</span>
+      </li>
+    `
+  }).join('')
   suggestions.innerHTML= html
- }
+}
 
- const searchInput = document.querySelector('.search')
- const suggestions = document.querySelector('.suggestions')
- searchInput.addEventListener('change', displayMatches)
- searchInput.addEventListener('keyup', displayMatches)
+searchInput.addEventListener('change', displayMatches)
+searchInput.addEventListener('keyup', displayMatches)
+
 
 
 </script>
