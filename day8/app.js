@@ -49,21 +49,44 @@ const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 const randomBtn = document.querySelector(".random-btn");
 
-//set starting item
+ let currentItem = 0;
+ window.addEventListener('DOMContentLoaded', loader)
 
-let currentItem = 0;
-
- window.addEventListener("DOMContentLoaded", loader(currentItem))
-//show person
- function loader (person){
-  const item = reviews[person]
+function loader(){
+  let item = reviews[currentItem]
   img.src = item.img
   author.textContent = item.name
   job.textContent = item.job
   info.textContent = item.text
- }
+}
 
-//show person
+nextBtn.addEventListener('click', next)
+prevBtn.addEventListener('click', prev)
+randomBtn.addEventListener('click', random)
+
+function next () {
+  if(currentItem>reviews.length-1){
+    currentItem = 0
+  }
+currentItem++
+loader()
+}
+
+function prev (){
+  
+  if(currentItem<0){
+    currentItem = reviews.length -1
+  }
+  currentItem--
+  loader()
+}
+
+
+function random(){
+  
+  currentItem= Math.floor(Math.random()*reviews.length)
+  loader()
+}
 
 
 
@@ -71,24 +94,4 @@ let currentItem = 0;
  prevBtn.addEventListener('click', prev)
  randomBtn.addEventListener('click', random)
 
- function next (){
-  currentItem++
-  if(currentItem > reviews.length-1) {
-    currentItem = 0;
-  }
-  loader(currentItem)
- }
-
-function prev (){
-currentItem--
-if(currentItem < 0){
-  currentItem = reviews.length -1
-}
-  loader(currentItem)
-}
-
-function random (){
-currentItem = Math.floor(Math.random()*reviews.length)
-loader(currentItem)
-
-}
+ 
