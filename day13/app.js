@@ -135,3 +135,8 @@ function displayMenuButtons(){
    
   })
 }
+
+var digits = '0123456789';
+var a = digits.split('', 5);
+
+console.log(a)
